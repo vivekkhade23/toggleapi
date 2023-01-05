@@ -59,9 +59,9 @@ projectRouter.put("/update/:id",(req,res)=>{
     }
 })
 
-projectRouter.get("/client",async(req,res)=>{
+projectRouter.get("/:client",async(req,res)=>{
     try {
-        const {client}=req.body;
+        const {client}=req.params;
      let projs=await projectModel.find({client:client});
      return res.send(projs)
      
