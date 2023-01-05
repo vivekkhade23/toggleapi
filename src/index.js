@@ -5,6 +5,8 @@ let bodyParser = require('body-parser')
 const cors=require('cors')
 const DbConnect = require('./config/DbConnect')
 const projectRouter = require('./router/project.router')
+const tagRouter = require('./router/tag.router')
+const clientRouter = require('./router/client.router')
 
 let PORT =process.env.PORT || 8080
 dotenv.config()
@@ -17,6 +19,8 @@ app.use(express.json())
 
 app.get('/' , (req , res) => { return  res.send('Namshkar') })
 app.use("/project",projectRouter)
+app.use("/tag",tagRouter)
+app.use("/client",clientRouter)
 
 app.listen(PORT,  () => {
     DbConnect();
