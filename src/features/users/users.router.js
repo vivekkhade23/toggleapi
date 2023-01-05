@@ -44,24 +44,38 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     let { email, password } = req.body;
     try {
-        let user = await users.findOne({ email, password });
+        // let user = await users.findOne({ email, password });
+        // console.log(user);
+        // // res.send(user)
+        // if (!user) {
+        //     return res.status(401).send("Authentication error");
+        // }
+        // res.set({
+        //     token: `${user.id}:${user.email}`
+        // });
 
-        if (!user) {
-            return res.status(401).send("Authentication error");
-        }
-        res.set({
-            token: `${user.id}:${user.email}`
-        });
-        res.cookie("token", `${user.id}:${user.email}`);
-        let a = req.cookies;
+        // res.cookie("token", `${user.id}:${user.email}`);
+        // let a = req.cookies;
 
-        console.log(a.token);
-        res.send({
-            token: `${user.id}:${user.email}`
-        });
+    //     console.log(a.token);
+    //    return res.send({
+    //         token: `${user.id}:${user.email}`
+    //     });
+    let user = await users.findOne({ email, password });
+    console.log(user);
+    if (!user) {
+      return res.status(401).send("Authentication error");
+    }
+    res.set('token', `${user.id}:${user.email}`);
+    res.cookie("token", `${user.id}:${user.email}`);
+    let a = req.cookies;
+    // console.log(a.token);
+    return res.send({
+      token: `${user.id}:${user.email}`
+    });
 
     } catch (e) {
-        res.status(500).send(e.message);
+     return   res.status(500).send(e.message);
     }
 })
 
