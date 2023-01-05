@@ -1,6 +1,5 @@
 const express = require('express');
 const users = require("./users.model");
-const authMiddleware = require("../middlewares/auth.middleware");
 
 const app = express.Router();
 
@@ -11,10 +10,11 @@ app.get("/", async (req, res) => {
     res.send(user);
 })
 
-app.get("/:id", authMiddleware, async (req, res) => {
+app.get("/:id", async (req, res) => {
     try {
-        let user = await users.findById(req.userId);
-        // console.log(user);
+        let {id}=req.params;
+        let user = await users.findById(id);
+        console.log(user);
         let item = { user: user };
         res.send(item);
     } catch (e) {
@@ -44,32 +44,14 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     let { email, password } = req.body;
     try {
-        // let user = await users.findOne({ email, password });
-        // console.log(user);
-        // // res.send(user)
-        // if (!user) {
-        //     return res.status(401).send("Authentication error");
-        // }
-        // res.set({
-        //     token: `${user.id}:${user.email}`
-        // });
-
-        // res.cookie("token", `${user.id}:${user.email}`);
-        // let a = req.cookies;
-
-    //     console.log(a.token);
-    //    return res.send({
-    //         token: `${user.id}:${user.email}`
-    //     });
     let user = await users.findOne({ email, password });
     console.log(user);
     if (!user) {
       return res.status(401).send("Authentication error");
     }
     res.set('token', `${user.id}:${user.email}`);
-    res.cookie("token", `${user.id}:${user.email}`);
-    let a = req.cookies;
-    // console.log(a.token);
+    res.cookie("token", `${user.id}:${user.email}:`);
+   
     return res.send({
       token: `${user.id}:${user.email}`
     });
