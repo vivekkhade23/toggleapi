@@ -8,6 +8,7 @@ const projectRouter = require('./router/project.router')
 const tagRouter = require('./router/tag.router')
 const clientRouter = require('./router/client.router')
 const users = require('./features/users/users.router.js')
+const teamRouter = require('./router/team.router')
 
 let PORT =process.env.PORT || 8080
 dotenv.config()
@@ -22,6 +23,8 @@ app.get('/' , (req , res) => { return  res.send('Namshkar') })
 app.use("/project",projectRouter)
 app.use("/tag",tagRouter)
 app.use("/client",clientRouter)
+app.use("/team",teamRouter)
+
 app.use("/users", users);
 
 
