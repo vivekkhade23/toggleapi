@@ -59,7 +59,7 @@ projectRouter.put("/update/:id",(req,res)=>{
     }
 })
 
-projectRouter.get("/:client",async(req,res)=>{
+projectRouter.get("/client/:client",async(req,res)=>{
     try {
         const {client}=req.params;
      let projs=await projectModel.find({client:client});
@@ -70,7 +70,7 @@ projectRouter.get("/:client",async(req,res)=>{
     }
  })
 
- projectRouter.get("/team",async(req,res)=>{
+ projectRouter.get("/team/:team",async(req,res)=>{
     try {
         const {team}=req.body;
      let projs=await projectModel.find({team:team});
@@ -82,7 +82,7 @@ projectRouter.get("/:client",async(req,res)=>{
  })
 
 
- projectRouter.get("/name",async(req,res)=>{
+ projectRouter.get("/name/:name",async(req,res)=>{
     try {
         const {name}=req.body;
      let projs=await projectModel.find({name:name});
@@ -93,7 +93,7 @@ projectRouter.get("/:client",async(req,res)=>{
     }
  })
 
- projectRouter.get("/archived",async(req,res)=>{
+ projectRouter.get("/archieved/:archieved",async(req,res)=>{
     try {
         const {isArchieved}=req.body;
      let projs=await projectModel.find({isArchieved:isArchieved});
