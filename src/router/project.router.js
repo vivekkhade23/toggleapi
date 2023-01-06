@@ -93,10 +93,20 @@ projectRouter.get("/client/:client",async(req,res)=>{
     }
  })
 
- projectRouter.get("/archieved/:archieved",async(req,res)=>{
+ projectRouter.get("/archieved",async(req,res)=>{
     try {
-        const {isArchieved}=req.params;
-     let projs=await projectModel.find({isArchieved:isArchieved});
+        
+     let projs=await projectModel.find({isArchieved:true});
+     return res.send(projs)
+     
+    } catch (error) {
+     return res.send("failed")
+    }
+ })
+ projectRouter.get("/unarchieved/",async(req,res)=>{
+    try {
+       
+     let projs=await projectModel.find({isArchieved:false});
      return res.send(projs)
      
     } catch (error) {
